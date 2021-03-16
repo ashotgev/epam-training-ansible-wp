@@ -1,0 +1,29 @@
+---
+- name: 'Install nginx and php'
+  apt:
+    name: '{{ item }}'
+    update_cache: yes
+    cache_valid_time: 3600
+    state: present
+  become: true 
+  loop:
+    - nginx
+    - php-fpm
+    - php-mysql
+- name: 'Send configuration file'
+  template:
+    src: "{{ wordpress_config_path }}"
+    dest: "{{ nginx_sites_available }}"
+  become: true
+- name: 'remove default nginx config'
+  file:
+    path: "{{ nginx_default_path }}"
+    state: absent
+  become: true
+- name: 'create link'
+  become: true
+  file:
+    src: "{{ nginx_sites_available }}"
+    dest: "{{ nginx_sites_enabled }}"
+    state: link
+  notify: 'restart nginx'

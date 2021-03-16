@@ -1,0 +1,20 @@
+---
+- name: 'Check if wordpress file exist'
+  stat: path=/var/www/wordpress
+  register: check_path
+- name: 'Download wordpress files'
+  get_url:
+    url: "{{ wordpress_remote_site_path }}" 
+    dest: '{{ wordpress_local_site_path }}'
+- name: 'Extract '
+  unarchive:
+    src: "{{ wordpress_local_site_path }}"
+    dest: "{{ nginx_www }}"
+    remote_src: yes
+  become: true
+- name: 'Change ownership '
+  file:
+    path: /var/www/wordpress
+    owner: www-data
+    group: www-data
+  become: true

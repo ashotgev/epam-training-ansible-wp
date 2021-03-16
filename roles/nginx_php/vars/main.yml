@@ -1,0 +1,5 @@
+---
+ansible_sudo_pass: "47A23a67@"
+wordpress_config_path: templates/wordpress.conf
+nginx_sites_available: /etc/nginx/sites-available/wordpress.conf
+nginx_sites_enabled: /etc/nginx/sites-enabled/wordpress.conf

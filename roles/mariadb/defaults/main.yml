@@ -1,0 +1,4 @@
+login_unix_socket: '/var/run/mysqld/mysqld.sock'
+db_name: 'wordpress_db'
+db_username: 'wordpress_user'
+db_user_pass: 'DbPass123'
